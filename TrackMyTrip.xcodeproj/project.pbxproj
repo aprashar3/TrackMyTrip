@@ -15,6 +15,11 @@
 		5C5C7CD0236EBC6200B78D83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C5C7CCF236EBC6200B78D83 /* Assets.xcassets */; };
 		5C5C7CD3236EBC6200B78D83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C5C7CD1236EBC6200B78D83 /* LaunchScreen.storyboard */; };
 		5C5C7CDE236EBC6200B78D83 /* TrackMyTripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C7CDD236EBC6200B78D83 /* TrackMyTripTests.swift */; };
+		5C5C7CE9236EC2E900B78D83 /* TripDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C7CE8236EC2E900B78D83 /* TripDetailTableViewCell.swift */; };
+		5C5C7CEB236EC30700B78D83 /* PreviousTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C7CEA236EC30700B78D83 /* PreviousTripViewController.swift */; };
+		5C5C7CED236EC32200B78D83 /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C7CEC236EC32200B78D83 /* NewTripViewController.swift */; };
+		5C5C7CEF23701B5000B78D83 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C7CEE23701B5000B78D83 /* CoreDataStack.swift */; };
+		5CD83AF923708A6A004A216B /* SpeedAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD83AF823708A6A004A216B /* SpeedAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +45,11 @@
 		5C5C7CD9236EBC6200B78D83 /* TrackMyTripTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackMyTripTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C5C7CDD236EBC6200B78D83 /* TrackMyTripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMyTripTests.swift; sourceTree = "<group>"; };
 		5C5C7CDF236EBC6200B78D83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C5C7CE8236EC2E900B78D83 /* TripDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailTableViewCell.swift; sourceTree = "<group>"; };
+		5C5C7CEA236EC30700B78D83 /* PreviousTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousTripViewController.swift; sourceTree = "<group>"; };
+		5C5C7CEC236EC32200B78D83 /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
+		5C5C7CEE23701B5000B78D83 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		5CD83AF823708A6A004A216B /* SpeedAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,11 +94,16 @@
 				5C5C7CC3236EBC5E00B78D83 /* AppDelegate.swift */,
 				5C5C7CC5236EBC5E00B78D83 /* SceneDelegate.swift */,
 				5C5C7CC7236EBC5E00B78D83 /* ViewController.swift */,
+				5C5C7CE8236EC2E900B78D83 /* TripDetailTableViewCell.swift */,
+				5C5C7CEA236EC30700B78D83 /* PreviousTripViewController.swift */,
+				5C5C7CEC236EC32200B78D83 /* NewTripViewController.swift */,
+				5CD83AF823708A6A004A216B /* SpeedAnnotation.swift */,
 				5C5C7CC9236EBC5E00B78D83 /* Main.storyboard */,
 				5C5C7CCF236EBC6200B78D83 /* Assets.xcassets */,
 				5C5C7CD1236EBC6200B78D83 /* LaunchScreen.storyboard */,
 				5C5C7CD4236EBC6200B78D83 /* Info.plist */,
 				5C5C7CCC236EBC5E00B78D83 /* TrackMyTrip.xcdatamodeld */,
+				5C5C7CEE23701B5000B78D83 /* CoreDataStack.swift */,
 			);
 			path = TrackMyTrip;
 			sourceTree = "<group>";
@@ -203,10 +218,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C5C7CEB236EC30700B78D83 /* PreviousTripViewController.swift in Sources */,
+				5CD83AF923708A6A004A216B /* SpeedAnnotation.swift in Sources */,
+				5C5C7CE9236EC2E900B78D83 /* TripDetailTableViewCell.swift in Sources */,
+				5C5C7CED236EC32200B78D83 /* NewTripViewController.swift in Sources */,
 				5C5C7CC8236EBC5E00B78D83 /* ViewController.swift in Sources */,
 				5C5C7CC4236EBC5E00B78D83 /* AppDelegate.swift in Sources */,
 				5C5C7CCE236EBC5E00B78D83 /* TrackMyTrip.xcdatamodeld in Sources */,
 				5C5C7CC6236EBC5E00B78D83 /* SceneDelegate.swift in Sources */,
+				5C5C7CEF23701B5000B78D83 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
