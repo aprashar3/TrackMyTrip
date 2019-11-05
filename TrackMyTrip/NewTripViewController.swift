@@ -14,12 +14,12 @@ import CoreLocation
 class NewTripViewController: UIViewController {
     
     let myLoacationManager = CLLocationManager()
-    private var trip: Trip?
-    private var timer: Timer?
+    var trip: Trip?
     private var locationList: [CLLocation] = []
     private var newLocation : CLLocation?
     private var speed: CLLocationSpeed = CLLocationSpeed()
-    private var distance = Measurement(value: 0, unit: UnitLength.kilometers)
+    var isFromList : Bool = false
+    var tripName:String?
     private var tripId : Int?
     
     @IBOutlet weak var colorInfoView: UIView!
@@ -27,55 +27,47 @@ class NewTripViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.colorInfoView.isHidden = true
-        myLoacationManager.requestAlwaysAuthorization()
-        myLoacationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            myLoacationManager.delegate = self
-            myLoacationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            myLoacationManager.startUpdatingLocation()
-        }
         currentTripMapView.delegate = self
-        currentTripMapView.showsUserLocation = true
+        if !isFromList{
+            self.colorInfoView.isHidden = true
+            myLoacationManager.requestAlwaysAuthorization()
+            myLoacationManager.requestWhenInUseAuthorization()
+            if CLLocationManager.locationServicesEnabled() {
+                myLoacationManager.delegate = self
+                myLoacationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                myLoacationManager.startUpdatingLocation()
+            }
+            currentTripMapView.showsUserLocation = true
+        }else{
+           loadTripMap()
+        }
+        
+        currentTripMapView.delegate = self
+        
         
         tripId = UserDefaults.standard.integer(forKey: "tripId")
-        if let id = tripId{
-            tripId = id+1
-            UserDefaults.standard.set(tripId, forKey: "tripId")
-        }else{
+        if tripId == nil{
             tripId = 1
             UserDefaults.standard.set(tripId, forKey: "tripId")
         }
         
-        
     }
     override func viewWillDisappear(_ animated: Bool) {
       super.viewWillDisappear(animated)
-      timer?.invalidate()
+
       myLoacationManager.stopUpdatingLocation()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
     @IBAction func doneBarButton(_ sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: "End run?",
-                                                message: "Do you wish to end your run?",
+        let alertController = UIAlertController(title: "End trip?",
+                                                message: "Do you wish to end your trip?",
                                                 preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alertController.addAction(UIAlertAction(title: "Save", style: .default) { _ in
             self.myLoacationManager.stopUpdatingLocation()
           self.stopTrip()
             self.loadTripMap()
-          //_ = self.navigationController?.popToRootViewController(animated: true)
-//          self.performSegue(withIdentifier: "StartToDetailSegue", sender: nil)
         })
         alertController.addAction(UIAlertAction(title: "Discard", style: .destructive) { _ in
           _ = self.navigationController?.popToRootViewController(animated: true)
@@ -97,12 +89,7 @@ extension NewTripViewController: CLLocationManagerDelegate{
             let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
             self.currentTripMapView.setRegion(region, animated: true)
         }
-//        if locationList.count > 0 && baseLocation != nil{
-//            let coordinates = [baseLocation!.coordinate, newLocation!.coordinate]
-//            currentTripMapView.addOverlay(MKPolyline(coordinates: coordinates, count: 2))
-//            let region = MKCoordinateRegion(center: newLocation!.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
-//            currentTripMapView.setRegion(region, animated: true)
-//        }
+
     }
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView = MKMarkerAnnotationView()
@@ -201,7 +188,7 @@ extension NewTripViewController: CLLocationManagerDelegate{
     }
     func stopTrip() {
         let newTrip = Trip(context: CoreDataStack.context)
-        newTrip.name = "testTrip"
+        newTrip.name = tripName
         newTrip.timestamp = Date()
         newTrip.id = Int16(tripId!)
         
@@ -290,7 +277,8 @@ extension NewTripViewController: MKMapViewDelegate{
           let location = location as! Location
           return location.longitude
         }
-          
+        
+        
         let maxLat = latitudes.max()!
         let minLat = latitudes.min()!
         let maxLong = longitudes.max()!
@@ -302,12 +290,15 @@ extension NewTripViewController: MKMapViewDelegate{
                                     longitudeDelta: (maxLong - minLong) * 1.3)
         currentTripMapView.setRegion(MKCoordinateRegion(center: center, span: span), animated: true)
         
-        for location in locationList{
-            let speedKiloHour = location.speed * 3.6
-            let intSpeed = Int(speedKiloHour)
-            let annotation = SpeedAnnotation(coordinate: location.coordinate, title: "\(intSpeed)Kmph", type: setColor(speedkmph: speedKiloHour))
-            currentTripMapView.addAnnotation(annotation)
+        
+            let locationArray = locations.allObjects as! [Location]
+            for eachLocation in locationArray{
+                let speedKmph = eachLocation.speed
+                let intSpeed = Int(speedKmph)
+                let annotation = SpeedAnnotation(coordinate: CLLocationCoordinate2D(latitude: eachLocation.latitude, longitude: eachLocation.longitude), title: "\(intSpeed)Kmph", type: setColor(speedkmph: speedKmph))
+                currentTripMapView.addAnnotation(annotation)
+            }
             
-        }
+        
     }
 }

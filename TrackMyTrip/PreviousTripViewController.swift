@@ -10,8 +10,9 @@ import UIKit
 import CoreData
 
 class PreviousTripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    var people: [NSManagedObject] = []
+    
+    var tripData: [NSManagedObject] = []
+    var selectedTrip: Trip?
     
     @IBOutlet weak var tripListTableView: UITableView!
     
@@ -37,28 +38,45 @@ class PreviousTripViewController: UIViewController, UITableViewDataSource, UITab
         
         //3
         do {
-          people = try managedContext.fetch(fetchRequest)
+          tripData = try managedContext.fetch(fetchRequest)
+            for trip in tripData{
+                print(trip.value(forKey: "name") as! String)
+                let location = trip.value(forKey: "locations") as! NSSet
+                let locationarray = location.allObjects as! [Location]
+            }
         } catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
         
     
     }
-    /*
-    // MARK: - Navigation
+    
+// MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+           if segue.identifier == "PreviousToStartSegue"{
+               let view = segue.destination as! NewTripViewController
+               view.isFromList = true
+               view.trip = selectedTrip
+           }
+       }
+    
+//MARK: Table view Datasource and Delegate
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return tripData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "TrackMyTrip"
+        cell.textLabel?.text = tripData[indexPath.row].value(forKey: "name") as? String
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTrip = tripData[indexPath.row] as? Trip
+        performSegue(withIdentifier: "PreviousToStartSegue", sender: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.contentSize.height
     }
 }

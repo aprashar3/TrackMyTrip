@@ -35,7 +35,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="50e-qB-lyd" kind="show" identifier="HomeToStartSegue" id="yD1-Et-Pxw"/>
+                                                    <action selector="startNewtripButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Ef-54-YYp"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wln-0b-c4q">
@@ -46,6 +46,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
+                                                    <action selector="showPreviousTripsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Waz-di-a0x"/>
                                                     <segue destination="VjQ-oP-mjl" kind="show" id="KfP-Dw-ITu"/>
                                                 </connections>
                                             </button>
@@ -64,6 +65,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="R3P-sc-RZB"/>
+                    <connections>
+                        <segue destination="50e-qB-lyd" kind="show" identifier="HomeToStartSegue" id="JAp-TU-kl0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -226,12 +230,21 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="69U-ok-Z70">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="L40-vw-pbG" style="IBUITableViewCellStyleDefault" id="69U-ok-Z70">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="60.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="69U-ok-Z70" id="BcW-TS-7Cx">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L40-vw-pbG">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="60.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                                    <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -250,9 +263,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WhY-un-GFy"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZSL-Z2-Z9d">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TLA-xo-Tm4"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="ZSL-Z2-Z9d"/>
                     <connections>
                         <outlet property="tripListTableView" destination="dhj-rb-iwc" id="dy7-SC-5Fg"/>
                         <segue destination="50e-qB-lyd" kind="show" identifier="PreviousToStartSegue" id="8Bt-6L-DlU"/>
